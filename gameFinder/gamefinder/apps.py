@@ -1,5 +1,5 @@
 from django.apps import AppConfig
 
 
-class GamefinderConfig(AppConfig):
+class GameFinderConfig(AppConfig):
     name = 'gamefinder'
