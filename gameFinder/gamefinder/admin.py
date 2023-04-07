@@ -1,5 +1,5 @@
 from django.contrib import admin
-from game_Finder.models import *
+from gamefinder.models import *
 
 # Register your models here.
 admin.site.register(Game)
