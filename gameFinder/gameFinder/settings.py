@@ -13,7 +13,6 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 from pathlib import Path
 from environ import Env
 
-
 #Environ django
 env=Env()
 env.read_env()
@@ -31,7 +30,7 @@ SECRET_KEY = 'w7x3ji#yr*ewd%sovndkl%+m+3-@5$$tg6nk+i7-!icm_^1o'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['0.0.0.0']
 
 
 # Application definition
@@ -43,8 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'game_Finder.apps.GameFinderConfig',
-    'bootstrap5'
+    'game_Finder.apps.GameFinderConfig'
 ]
 
 MIDDLEWARE = [
@@ -82,9 +80,13 @@ WSGI_APPLICATION = 'gameFinder.wsgi.application'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 DATABASES = {
-'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'database',
+        'USER': 'admin',
+        'PASSWORD': 'admin',
+        'HOST': '0.0.0.0',
+        'PORT': '5432'
     }
 }
 
