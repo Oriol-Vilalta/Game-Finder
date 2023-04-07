@@ -23,8 +23,18 @@
         <td>{{ g.platform }}</td>
         <td>{{ g.developingCompany }}</td>
         <td>
-          <button type="button" class="btn btn-primary">Veure</button>
-          <button type="button" class="btn btn-danger">Eliminar</button>
+          <div class = "row">
+            <div class = "col">
+              <form action="./updateGame/{{ g.id }}">
+                <button type="submit" class="btn btn-primary">Veure</button>
+              </form>
+            </div>
+            <div class = "col">
+              <form action="./deleteGame/{{ g.id }}">
+                <button type="submit" class="btn btn-danger">Eliminar</button>
+              </form>
+            </div>
+          </div>
         </td>
       </tr>
       {% endfor %}
@@ -32,7 +42,9 @@
   </table>
 
   <div class = "float-end">
-    <button type="button" class="btn btn-success">Afegir</button>
+    <form action="./addGame">
+      <button type="submit" class="btn btn-success" >Añadir</button>
+    </form>
   </div>
 </div>
 

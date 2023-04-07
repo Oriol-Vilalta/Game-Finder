@@ -11,6 +11,14 @@ def home(request):
     game=Game.objects.all()
     return render(request, 'home.html',{'platform':plataform, 'genre':genre, 'developing_company':dev_company, 'game':game})
 
+def platforms(request):
+    plataform = Platform.objects.all()
+    genre = Genre.objects.all()
+    dev_company = DevelopingCompany.objects.all()
+    game=Game.objects.all()
+    return render(request, 'platforms.html',{'platform':plataform, 'genre':genre, 'developing_company':dev_company, 'game':game})
+
+
 def addGame(request):
     if request.method == 'POST':
         form = GameForm(request.POST)
