@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 from environ import Env
-import mysql.connector
 
 
 #Environ django
@@ -44,7 +43,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'game_Finder.apps.GameFinderConfig'
+    'game_Finder.apps.GameFinderConfig',
+    'bootstrap5'
 ]
 
 MIDDLEWARE = [
@@ -82,13 +82,9 @@ WSGI_APPLICATION = 'gameFinder.wsgi.application'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'nombre_de_tu_base_de_datos',
-        'USER': 'tu_usuario',
-        'PASSWORD': 'tu_contraseña',
-        'HOST': 'localhost',
-        'PORT': '3306',
+'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 

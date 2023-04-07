@@ -1,28 +1,43 @@
-<h1>Bienvenido a nuestra página de inicio</h1>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+  </head>
+  <body>
+    <h1>Bienvenido a nuestra página de inicio</h1>
 
-<table>
-    <thead>
-      <tr>
-        <th>Id</th>
-        <th>Título</th>
-        <th>Género</th>
-        <th>Plataforma</th>
-        <th>Compañía</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for g in game %}
-      <tr>
-        <td>{{ g.id }}</td>
-        <td>{{ g.title }}</td>
-        <td>{{ g.genre }}</td>
-        <td>{{ g.platform }}</td>
-        <td>{{ g.developingCompany }}</td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
-</table>
+  <table>
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Título</th>
+          <th>Género</th>
+          <th>Plataforma</th>
+          <th>Compañía</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for g in game %}
+        <tr>
+          <td>{{ g.id }}</td>
+          <td>{{ g.title }}</td>
+          <td>{{ g.genre }}</td>
+          <td>{{ g.platform }}</td>
+          <td>{{ g.developingCompany }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </body>
+</html>
+
+
 
 <!--<h3>Juegos</h3>
 <ul>
