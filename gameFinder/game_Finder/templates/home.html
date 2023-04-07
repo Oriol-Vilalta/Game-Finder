@@ -1,29 +1,42 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>Bienvenido a nuestra página de inicio</h1>
+<h1 class = "text-center">Bienvenido a nuestra página de inicio</h1>
 
-<table>
+<div class = "m-5">
+  <table class = "table">
     <thead>
-      <tr>
+      <tr class="text-center">
         <th>Id</th>
         <th>Título</th>
         <th>Género</th>
         <th>Plataforma</th>
         <th>Compañía</th>
+        <th>Acciones</th>
       </tr>
     </thead>
     <tbody>
       {% for g in game %}
-      <tr>
+      <tr class="text-center align-middle">
         <td>{{ g.id }}</td>
         <td>{{ g.title }}</td>
         <td>{{ g.genre }}</td>
         <td>{{ g.platform }}</td>
         <td>{{ g.developingCompany }}</td>
+        <td>
+          <button type="button" class="btn btn-primary">Veure</button>
+          <button type="button" class="btn btn-danger">Eliminar</button>
+        </td>
       </tr>
       {% endfor %}
     </tbody>
   </table>
+
+  <div class = "float-end">
+    <button type="button" class="btn btn-success">Afegir</button>
+  </div>
+</div>
+
+
 {% endblock %}
 
 
