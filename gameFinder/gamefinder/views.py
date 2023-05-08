@@ -1,7 +1,11 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
+from django.contrib.auth.forms import UserCreationForm
 from .models import Platform, Genre, Game, DevelopingCompany
 from .forms import GameForm
+
+
+
 
 # Create your views here.
 def home(request):
@@ -10,6 +14,21 @@ def home(request):
     dev_company = DevelopingCompany.objects.all()
     game=Game.objects.all()
     return render(request, 'home.html',{'platform':plataform, 'genre':genre, 'developing_company':dev_company, 'game':game})
+
+
+def register(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+
+            messages.success(request, f'Your account has been created. You can log in now!')    
+            return redirect('login')
+    else:
+        form = UserCreationForm()
+
+    context = {'form': form}
+    return render(request, 'register.html', context)
 
 def platforms(request):
     plataform = Platform.objects.all()
