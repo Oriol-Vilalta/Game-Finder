@@ -6,4 +6,12 @@
   {{ form.as_p }}
   <input type="submit" value="Guardar">
 </form>
+<script>
+  $(function() {
+    var countries = ["Afghanistan", "Albania",..."Zaire", "Zambia", "Zimbabwe"];
+    $( "#id_country" ).autocomplete({
+      source: countries
+    });
+  });
+  </script>
 {% endblock %}
