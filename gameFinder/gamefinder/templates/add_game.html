@@ -1,17 +1,50 @@
 {% extends "base.html" %}
+
 {% block content %}
-<h1>Agregar juego</h1>
-<form method="post" action="{% url 'addgame' %}">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <input type="submit" value="Guardar">
-</form>
-<script>
-  $(function() {
-    var countries = ["Afghanistan", "Albania",..."Zaire", "Zambia", "Zimbabwe"];
-    $( "#id_country" ).autocomplete({
-      source: countries
+  <h1>Agregar juego</h1>
+  <form method="post" action="{% url 'addgame' %}">
+    {% csrf_token %}
+    <div>
+      <label for="title">Título:</label>
+      <input type="text" id="title" name="title">
+    </div>
+    <div>
+      <label for="platform">Plataforma:</label>
+      <input type="text" id="platform" name="platform">
+    </div>
+    <div>
+      <label for="genre">Género:</label>
+      <input type="text" id="genre" name="genre">
+    </div>
+    <input type="submit" value="Guardar">
+  </form>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js" ></script>
+  <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js" ></script>
+  <script>
+    $(function() {
+      $( "#title" ).autocomplete({
+        source: function(request, response) {
+          $.ajax({
+            url: "https://api.rawg.io/api/games",
+            type: "GET",
+            dataType: "json",
+            data: {
+              search: request.term,
+              key: "12be482495cb4070b168a25fc05ff342"
+            },
+            success: function(data) {
+              response($.map(data.results, function(item) {
+                return {
+                  label: item.name,
+                  value: item.name
+                };
+              }));
+            }
+          });
+        },
+        minLength: 3
+      });
     });
-  });
   </script>
 {% endblock %}
