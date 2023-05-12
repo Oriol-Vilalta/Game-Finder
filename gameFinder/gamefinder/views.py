@@ -3,6 +3,10 @@ from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm
 from .models import Platform, Genre, Game, DevelopingCompany
 from .forms import GameForm
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.forms import AuthenticationForm
+
+
 
 
 
@@ -21,7 +25,6 @@ def register(request):
         form = UserCreationForm(request.POST)
         if form.is_valid():
             form.save()
-
             messages.success(request, f'Your account has been created. You can log in now!')    
             return redirect('login')
     else:
@@ -29,6 +32,23 @@ def register(request):
 
     context = {'form': form}
     return render(request, 'register.html', context)
+
+def login_view(request):
+    if request.method == 'POST':
+  
+        # AuthenticationForm_can_also_be_used__
+  
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username = username, password = password)
+        if user is not None:
+            form = login(request, user)
+            messages.success(request, f' welcome {username} !!')
+            return redirect('home')
+        else:
+            messages.info(request, f'account done not exit plz sign in')
+    form = AuthenticationForm()
+    return render(request, 'login.html', {'form':form, 'title':'log in'})
 
 def platforms(request):
     plataform = Platform.objects.all()
