@@ -1,9 +1,82 @@
 {% extends "base.html" %}
+
 {% block content %}
-<h1>Agregar juego</h1>
-<form method="post" action="{% url 'addgame' %}">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <input type="submit" value="Guardar">
-</form>
+  <h1>Agregar juego</h1>
+  <form method="post" action="{% url 'addgame' %}">
+    {% csrf_token %}
+    <div>
+      <label for="title">Título:</label>
+      <input type="text" id="title" name="title">
+    </div>
+    <div>
+      <label for="platform">Plataforma:</label>
+      <select id="platform" name="platform">
+        {% for platform in platforms %}
+          <option value="{{ platform.id }}">{{ platform.name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div>
+      <label for="genre">Género:</label>
+      <select id="genre" name="genre">
+        {% for genre in genres %}
+          <option value="{{ genre.id }}">{{ genre.name }}</option>
+        {% endfor %}
+      </select>
+    </div>    
+    <input type="submit" value="Guardar">
+  </form>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js" ></script>
+  <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js" ></script>
+  <style>
+    .ui-autocomplete {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      z-index: 1000;
+      float: left;
+      display: none;
+      min-width: 160px;
+      padding: 4px 0;
+      margin: 2px 0 0 0;
+      list-style: none;
+      background-color: #fff;
+      border-color: #ccc;
+      border-color: rgba(0, 0, 0, 0.2);
+      border-style: solid;
+      border-width: 1px;
+      max-height: 200px;
+      overflow-y: auto;
+      /* Agrega una distancia vertical de 10px */
+      margin-top: 10px;
+    }
+  </style>
+  <script>
+    $(function() {
+      $( "#title" ).autocomplete({
+        source: function(request, response) {
+          $.ajax({
+            url: "https://api.rawg.io/api/games",
+            type: "GET",
+            dataType: "json",
+            data: {
+              search: request.term,
+              key: "12be482495cb4070b168a25fc05ff342"
+            },
+            success: function(data) {
+              response($.map(data.results, function(item) {
+                return {
+                  label: item.name,
+                  value: item.name
+                };
+              }));
+            }
+          });
+        },
+        minLength: 3,
+        appendTo: "#title_autocomplete_container"
+      });
+    });
+  </script>
 {% endblock %}
