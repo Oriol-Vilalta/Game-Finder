@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm
 from .models import Platform, Genre, Game, DevelopingCompany
 from .forms import GameForm
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
 
 
@@ -16,12 +16,15 @@ def home(request):
     plataform = Platform.objects.all()
     genre = Genre.objects.all()
     dev_company = DevelopingCompany.objects.all()
-    game=Game.objects.all()
+    game=Game.objects.filter(user = request.user)
     return render(request, 'home.html',{'platform':plataform, 'genre':genre, 'developing_company':dev_company, 'game':game})
 
 
 def register(request):
     if request.method == 'POST':
+        if request.user.is_authenticated:
+            return redirect('home')
+
         form = UserCreationForm(request.POST)
         if form.is_valid():
             form.save()
@@ -50,6 +53,10 @@ def login_view(request):
     form = AuthenticationForm()
     return render(request, 'login.html', {'form':form, 'title':'log in'})
 
+def logout_view(request):
+    logout(request)
+    return redirect('login')
+
 def platforms(request):
     plataform = Platform.objects.all()
     genre = Genre.objects.all()
@@ -69,11 +76,14 @@ def addGame(request):
             plataforma = request.POST['platform']
             compania = request.POST['developingCompany']
             genero = request.POST['genre']
-            if Game.objects.filter(title=titulo, genre=genero).exists():
+            user = request.user
+            if Game.objects.filter(title=titulo, genre=genero, user=user).exists():
                 messages.error(request, 'Este juego ya existe en la base de datos.')
             else:
                 # Si el juego no existe, crearlo
-                game = form.save()
+                game = form.save(commit = False)
+                game.user = request.user
+                game.save()
                 messages.success(request, 'Juego añadido exitosamente.')
                 return redirect('home')
     else:
