@@ -15,11 +15,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from gamefinder.views import home, addGame, deleteGame, updateGame, register, login_view, logout_view
+from gamefinder.views import home, addGame, deleteGame, updateGame, register, login_view, logout_view, not_found
 
 urlpatterns = [
+    # path('default', not_found, name='not_found'),
     path('', home, name='home'),
-    path('addGame/', addGame, name='addgame'),
+    path('home/', home, name='home'),
+
+    path('home/addGame/', addGame, name='addgame'),
     path('admin/', admin.site.urls),
     path('deleteGame/<int:id_game>/', deleteGame, name='deletegame'),
     path('updateGame/<int:id_game>/', updateGame, name='updategame'),
@@ -31,3 +34,4 @@ urlpatterns = [
     # path('logout/', auth_views.LogoutView.as_view(template_name='logout.html'), name='logout'),
 
 ]
+handler404 = not_found

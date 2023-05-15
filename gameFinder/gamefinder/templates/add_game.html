@@ -2,11 +2,15 @@
 
 {% block content %}
   <h1>Agregar juego</h1>
-  <form method="post" action="{% url 'addgame' %}">
+  <form method="POST" action="{% url 'addgame' %}">
     {% csrf_token %}
     <div>
       <label for="title">Título:</label>
       <input type="text" id="title" name="title">
+    </div>
+    <div>
+      <label for="rating">Puntuacion:</label>
+      <input type="number" name="rating" step="0.1" id = "rating">   
     </div>
     <div>
       <label for="platform">Plataforma:</label>
@@ -23,12 +27,19 @@
           <option value="{{ genre.id }}">{{ genre.name }}</option>
         {% endfor %}
       </select>
+
+      
     </div>    
+    <div>
+      <label for="developingCompany">Companyia:</label>
+      <select id="developingCompany" name="developingCompany">
+        {% for developingCompany in developingCompanies %}
+          <option value="{{ developingCompany.id }}">{{ developingCompany.name }}</option>
+        {% endfor %}
+      </select>
+    </div>
     <input type="submit" value="Guardar">
   </form>
-
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js" ></script>
-  <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js" ></script>
   <style>
     .ui-autocomplete {
       position: absolute;
