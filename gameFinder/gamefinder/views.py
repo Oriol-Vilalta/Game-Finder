@@ -8,6 +8,7 @@ from django.contrib.auth.forms import AuthenticationForm
 import pdb
 
 
+
 # Create your views here.
 def home(request):
     if not (request.user.is_authenticated):
@@ -45,10 +46,10 @@ def login_view(request):
         user = authenticate(request, username = username, password = password)
         if user is not None:
             form = login(request, user)
-            messages.success(request, f' welcome {username} !!')
+            messages.success(request, f'{username}')
             return redirect('home')
         else:
-            messages.info(request, f'account done not exit plz sign in')
+            messages.info(request, f'ok')
     form = AuthenticationForm()
     return render(request, 'login.html', {'form':form, 'title':'log in'})
 
@@ -70,8 +71,6 @@ def addGame(request):
     devCompany = DevelopingCompany.objects.all()
     if request.method == 'POST':
         form = GameForm(request.POST)
-        print("post")
-        # pdb.set_trace()
         if form.is_valid():
             """juego = form.save(commit=False)
             juego.usuario = request.user  # Asignar el usuario actual al nuevo juego"""
@@ -84,7 +83,6 @@ def addGame(request):
             if Game.objects.filter(title=titulo, genre=genero, user=user).exists():
                 messages.error(request, 'Este juego ya existe en la base de datos.')
             else:
-                print("add")
                 # Si el juego no existe, crearlo
                 game = form.save(commit = False)
                 game.user = request.user
@@ -129,3 +127,6 @@ def updateGame(request, id_game):
 
 def not_found(request, exception):
     return render(request, 'not_found.html', status=404)
+
+
+
