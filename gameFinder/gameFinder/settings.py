@@ -25,6 +25,7 @@ SECRET_KEY = 'lpry=!1=bmw(@8m@mb+ccgznqr7udnd=1w@rrq14u@!*xip)%5' #get_env("secr
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+
 ALLOWED_HOSTS = ["127.0.0.1"]
 
 

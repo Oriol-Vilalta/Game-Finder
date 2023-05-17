@@ -31,3 +31,8 @@ urlpatterns = [
     # path('logout/', auth_views.LogoutView.as_view(template_name='logout.html'), name='logout'),
 
 ]
+
+def handler404(request, exception, template_name="not_found.html"):
+    response = render_to_response(template_name)
+    response.status_code = 404
+    return response

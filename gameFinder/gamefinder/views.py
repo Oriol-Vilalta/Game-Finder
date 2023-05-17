@@ -22,7 +22,7 @@ def home(request):
 
 def register(request):
     if request.method == 'POST':
-        if request.user.is_authenticated    :
+        if request.user.is_authenticated:
             return redirect('home')
 
         form = UserCreationForm(request.POST)
