@@ -38,8 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'gamefinder.apps.GameFinderConfig',
-    'bootstrap5',
-    'django_select2'
+    'bootstrap5'
 ]
 
 MIDDLEWARE = [
