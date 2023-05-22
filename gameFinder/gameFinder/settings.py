@@ -23,8 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'lpry=!1=bmw(@8m@mb+ccgznqr7udnd=1w@rrq14u@!*xip)%5' #get_env("secret key")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
+DEBUG = False
 
 ALLOWED_HOSTS = ["127.0.0.1"]
 
@@ -38,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'gamefinder.apps.GameFinderConfig'
+    'gamefinder.apps.GameFinderConfig',
+    'bootstrap5'
 ]
 
 MIDDLEWARE = [
@@ -120,3 +120,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'

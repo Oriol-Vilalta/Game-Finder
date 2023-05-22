@@ -14,25 +14,25 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
-from gamefinder.views import home, addGame, deleteGame, updateGame, register, login_view, logout_view
+from django.urls import path, include
+from gamefinder.views import home, addGame, deleteGame, updateGame, register, login_view, logout_view, not_found
 
 urlpatterns = [
+    # path('default', not_found, name='not_found'),
     path('', home, name='home'),
-    path('addGame/', addGame, name='addgame'),
+    path('home/', home, name='home'),
+
+    path('home/addGame/', addGame, name='addgame'),
     path('admin/', admin.site.urls),
     path('deleteGame/<int:id_game>/', deleteGame, name='deletegame'),
     path('updateGame/<int:id_game>/', updateGame, name='updategame'),
     path('register/', register, name='register'),
 
     path('login/', login_view, name='login'),
-    path('logout/', logout_view, name='logout')
+    path('logout/', logout_view, name='logout'),
+
 
     # path('logout/', auth_views.LogoutView.as_view(template_name='logout.html'), name='logout'),
 
 ]
-
-def handler404(request, exception, template_name="not_found.html"):
-    response = render_to_response(template_name)
-    response.status_code = 404
-    return response
+handler404 = not_found

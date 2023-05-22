@@ -1,5 +1,10 @@
 {% extends "base.html" %}
 {% block content %}
+{% load bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{% include 'navbar.html' %}
+
 <h1>Actualizar juego</h1>
 <form method="POST">
     {% csrf_token %}

@@ -1,6 +1,11 @@
 {% extends "base.html" %}
 {% block content %}
-<a href="/logout">logout</a>
+
+{% load bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{% include 'navbar.html' %}
 
 <h1 class = "text-center">Bienvenido a nuestra página de inicio</h1>
 
@@ -27,12 +32,12 @@
         <td>
           <div class = "row">
             <div class = "col">
-              <form action="./updateGame/{{ g.id }}">
-                <button type="submit" class="btn btn-primary">Veure</button>
+              <form action="/updateGame/{{ g.id }}">
+                <button type="submit" class="btn btn-primary">Actualitzar</button>
               </form>
             </div>
             <div class = "col">
-              <form action="./deleteGame/{{ g.id }}">
+              <form action="/deleteGame/{{ g.id }}">
                 <button type="submit" class="btn btn-danger">Eliminar</button>
               </form>
             </div>

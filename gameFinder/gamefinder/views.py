@@ -5,14 +5,14 @@ from .models import Platform, Genre, Game, DevelopingCompany
 from .forms import GameForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
-
-
-
+import pdb
 
 
 
 # Create your views here.
 def home(request):
+    if not (request.user.is_authenticated):
+        return redirect('login')
     plataform = Platform.objects.all()
     genre = Genre.objects.all()
     dev_company = DevelopingCompany.objects.all()
@@ -46,10 +46,10 @@ def login_view(request):
         user = authenticate(request, username = username, password = password)
         if user is not None:
             form = login(request, user)
-            messages.success(request, f' welcome {username} !!')
+            messages.success(request, f'{username}')
             return redirect('home')
         else:
-            messages.info(request, f'account done not exit plz sign in')
+            messages.info(request, f'ok')
     form = AuthenticationForm()
     return render(request, 'login.html', {'form':form, 'title':'log in'})
 
@@ -66,6 +66,10 @@ def platforms(request):
 
 
 def addGame(request):
+    errorMesage = ""
+    plataform = Platform.objects.all()
+    genre = Genre.objects.all()
+    devCompany = DevelopingCompany.objects.all()
     if request.method == 'POST':
         form = GameForm(request.POST)
         if form.is_valid():
@@ -79,6 +83,7 @@ def addGame(request):
             user = request.user
             if Game.objects.filter(title=titulo, genre=genero, user=user).exists():
                 messages.error(request, 'Este juego ya existe en la base de datos.')
+                errorMesage = "El juego ya existe"
             else:
                 # Si el juego no existe, crearlo
                 game = form.save(commit = False)
@@ -86,9 +91,10 @@ def addGame(request):
                 game.save()
                 messages.success(request, 'Juego añadido exitosamente.')
                 return redirect('home')
+        errorMesage = "Error al crear el juego, revisa los campos."
     else:
         form = GameForm()
-    return render(request, 'add_game.html', {'form': form})
+    return render(request, 'add_game.html', {'form': form, 'genres': genre, 'platforms': plataform, 'developingCompanies': devCompany, 'errorMesage': errorMesage})
 
 def deleteGame(request, id_game):
     juego = get_object_or_404(Game, pk=id_game)
@@ -121,3 +127,9 @@ def updateGame(request, id_game):
         form.save()
         return redirect('home')
     return render(request, 'update_game.html', {'form': form})
+
+def not_found(request, exception):
+    return render(request, 'not_found.html', status=404)
+
+
+
