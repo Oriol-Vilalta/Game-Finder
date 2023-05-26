@@ -50,6 +50,9 @@ class ViewTests(TestCase):
         self.assertEqual(game.title, 'Game 1')
         self.assertEqual(game.platform.id, self.platform.id)
         self.assertEqual(game.genre.id, self.genre.id)
+
+
+
         self.assertEqual(game.developingCompany.id, self.developingCompany.id)
         self.assertEqual(game.rating, 9.5)
         self.assertEqual(game.user, self.user)
@@ -136,7 +139,9 @@ class ViewTests(TestCase):
             'developingCompany': [self.developingCompany.id],
             'rating': [round(Decimal(4.0), 1)]
         })
-        game = Game.objects.last()
+        
+
+
         newGameObjectCount = Game.objects.count()
         # self.assertEqual(response.status_code, 200)
         self.assertEqual(oldGameObjectCount+1, newGameObjectCount)

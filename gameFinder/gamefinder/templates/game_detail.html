@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+{% load bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{% include 'navbar.html' %}
+
+<div>
+    <span vocab="https://schema.org/" typeof="VideoGame">
+        <h1 property = "name">{{ game.title }}</h1>
+        <p>{{ game.rating}}</p>
+        <p>{{ game.developingCompany.name }}</p>
+        <p property = "genre">{{ game.genre.name }}</p>
+        <p property = "gamePlatform">{{ game.platform.name }}</p>
+    </span>
+</div>          
+{% endblock %}

@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from gamefinder.views import home, addGame, deleteGame, updateGame, register, login_view, logout_view, not_found
+from gamefinder.views import home, addGame, deleteGame, updateGame, register, login_view, logout_view, gameDetail, not_found
 
 urlpatterns = [
     # path('default', not_found, name='not_found'),
@@ -26,6 +26,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('deleteGame/<int:id_game>/', deleteGame, name='deletegame'),
     path('updateGame/<int:id_game>/', updateGame, name='updategame'),
+    path('gameDetail/<int:id_game>/', gameDetail, name='gamedetail'),
+
     path('register/', register, name='register'),
 
     path('login/', login_view, name='login'),

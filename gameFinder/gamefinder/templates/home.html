@@ -23,22 +23,27 @@
     </thead>
     <tbody>
       {% for g in game %}
-      <tr class="text-center align-middle">
+      <tr class="text-center align-middle" vocab="https://schema.org/" typeof="VideoGame">
         <td>{{ g.id }}</td>
-        <td>{{ g.title }}</td>
-        <td>{{ g.genre }}</td>
+        <td property = "name">{{ g.title }}</td>
+        <td property = "genre">{{ g.genre }}</td>
         <td>{{ g.platform }}</td>
-        <td>{{ g.developingCompany }}</td>
+        <td property = "gamePlatform">{{ g.developingCompany }}</td>
         <td>
           <div class = "row">
-            <div class = "col">
+            <div class = "col-4">
               <form action="/updateGame/{{ g.id }}">
                 <button type="submit" class="btn btn-primary">Actualitzar</button>
               </form>
             </div>
-            <div class = "col">
+            <div class = "col-4">
               <form action="/deleteGame/{{ g.id }}">
                 <button type="submit" class="btn btn-danger">Eliminar</button>
+              </form>
+            </div>
+            <div class = "col-4">
+              <form action="/gameDetail/{{ g.id }}">
+                <button type="submit" class="btn btn-success">Infromacion</button>
               </form>
             </div>
           </div>

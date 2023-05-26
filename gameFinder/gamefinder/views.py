@@ -128,6 +128,13 @@ def updateGame(request, id_game):
         return redirect('home')
     return render(request, 'update_game.html', {'form': form})
 
+def gameDetail(request, id_game):
+
+    game = get_object_or_404(Game, pk=id_game)
+    if(request.user != game.user):
+        return redirect('home')
+    return render(request, 'game_detail.html', {'game': game})
+
 def not_found(request, exception):
     return render(request, 'not_found.html', status=404)
 
