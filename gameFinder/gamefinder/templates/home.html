@@ -28,7 +28,11 @@
         <td property = "name">{{ g.title }}</td>
         <td property = "genre">{{ g.genre }}</td>
         <td property = "gamePlatform" >{{ g.platform }}</td>
-        <td>{{ g.developingCompany }}</td>
+        <span property="author" typeof="Organization">
+          <td property="name">
+            {{ g.developingCompany }}
+          </td>
+        </span>
         <td>
           <div class = "row">
             <div class = "col-4">

@@ -8,8 +8,14 @@
 <div>
     <span vocab="https://schema.org/" typeof="VideoGame">
         <h1 property = "name">{{ game.title }}</h1>
-        <p>{{ game.rating }}</p>
-        <p>{{ game.developingCompany.name }}</p>
+        <span property="aggregateRating"  typeof="AggregateRating">
+            <p property="ratingValue">{{ game.rating }}</p>
+        </span>
+        <span property="author" typeof="Organization">
+            <p property="name">
+              {{ g.developingCompany }}
+            </p>
+          </span>        
         <p property = "genre">{{ game.genre.name }}</p>
         <p property = "gamePlatform">{{ game.platform.name }}</p>
     </span>
